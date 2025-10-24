@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsf36l7jq6wyq"]
+
+[ext_resource type="PackedScene" uid="uid://chwg5cmw2iiws" path="res://scenes/pickups/pickup_base.tscn" id="1_miu4l"]
+[ext_resource type="Script" uid="uid://cvs37wtghk3gr" path="res://scripts/health_pickup.gd" id="2_op5pu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s0h3m"]
+size = Vector3(0.5, 0.3, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cjth"]
+albedo_color = Color(0.3491902, 0.8548469, 0.3491902, 1)
+emission_enabled = true
+emission = Color(0, 0.58383155, 0, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ow837"]
+size = Vector3(0.6, 0.4, 0.6)
+
+[node name="PickupBase" instance=ExtResource("1_miu4l")]
+script = ExtResource("2_op5pu")
+heal_amount = 25.0
+
+[node name="MeshInstance3D" parent="." index="0"]
+mesh = SubResource("BoxMesh_s0h3m")
+surface_material_override/0 = SubResource("StandardMaterial3D_5cjth")
+
+[node name="CollisionShape3D" parent="." index="1"]
+shape = SubResource("BoxShape3D_ow837")

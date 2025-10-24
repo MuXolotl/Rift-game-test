@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://kiknt1tjfbtt"]
+
+[ext_resource type="PackedScene" uid="uid://bbn4ykd5686bl" path="res://scenes/player/player.tscn" id="1_jbqir"]
+[ext_resource type="PackedScene" uid="uid://dd8vmouvqalg1" path="res://scenes/enemies/basic_enemy.tscn" id="2_yautc"]
+[ext_resource type="PackedScene" uid="uid://bsf36l7jq6wyq" path="res://scenes/pickups/health_pickup.tscn" id="3_v45ci"]
+[ext_resource type="PackedScene" uid="uid://ddyi11gjoa7xe" path="res://scenes/pickups/ammo_pickup.tscn" id="4_48ne7"]
+[ext_resource type="PackedScene" uid="uid://cbi5wvp2ldfgo" path="res://scenes/objects/door.tscn" id="5_48ne7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbqir"]
+albedo_color = Color(0.4862745, 0.4862745, 0.4862745, 1)
+metallic = 0.5
+roughness = 0.8
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jbqir"]
+sky_top_color = Color(0.24780053, 0.24780053, 0.3491902, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_yautc"]
+sky_material = SubResource("ProceduralSkyMaterial_jbqir")
+
+[sub_resource type="Environment" id="Environment_fr1um"]
+background_mode = 2
+sky = SubResource("Sky_yautc")
+ambient_light_source = 2
+ambient_light_color = Color(0.3491902, 0.3491902, 0.48452926, 1)
+ambient_light_energy = 0.2
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+use_collision = true
+size = Vector3(20, 0.5, 20)
+material = SubResource("StandardMaterial3D_jbqir")
+
+[node name="WallSouth" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -10)
+use_collision = true
+size = Vector3(20, 4, 0.5)
+material = SubResource("StandardMaterial3D_jbqir")
+
+[node name="WallEast" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0)
+use_collision = true
+size = Vector3(0.5, 4, 20)
+material = SubResource("StandardMaterial3D_jbqir")
+
+[node name="WallWest" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
+use_collision = true
+size = Vector3(0.5, 4, 20)
+material = SubResource("StandardMaterial3D_jbqir")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.70710677, 0.49999997, -0.49999997, 0, 0.70710677, 0.70710677, 0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
+light_color = Color(0.85490197, 0.85490197, 1, 1)
+light_energy = 0.1
+
+[node name="Player" parent="." instance=ExtResource("1_jbqir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fr1um")
+
+[node name="EmergencyLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.5
+omni_range = 8.0
+
+[node name="Enemy" parent="." instance=ExtResource("2_yautc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_yautc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 5)
+
+[node name="PickupBase" parent="." instance=ExtResource("3_v45ci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, 8)
+
+[node name="PickupBase2" parent="." instance=ExtResource("3_v45ci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 8)
+
+[node name="PickupBase3" parent="." instance=ExtResource("3_v45ci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, -8)
+
+[node name="PickupBase4" parent="." instance=ExtResource("4_48ne7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -8)
+
+[node name="PickupBase5" parent="." instance=ExtResource("4_48ne7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 5)
+
+[node name="WallNorth_Left" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2, 10)
+use_collision = true
+size = Vector3(9, 4, 0.5)
+
+[node name="WallNorth_Right" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2, 10)
+use_collision = true
+size = Vector3(9, 4, 0.5)
+
+[node name="Door" parent="." instance=ExtResource("5_48ne7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10)
+is_locked = false
+auto_close = true
+auto_close_delay = 5.0

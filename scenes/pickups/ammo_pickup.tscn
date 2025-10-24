@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddyi11gjoa7xe"]
+
+[ext_resource type="PackedScene" uid="uid://chwg5cmw2iiws" path="res://scenes/pickups/pickup_base.tscn" id="1_lty2n"]
+[ext_resource type="Script" uid="uid://dy50n747e0gtr" path="res://scripts/ammo_pickup.gd" id="2_r5ix3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jgu5d"]
+size = Vector3(0.3, 0.4, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tu783"]
+albedo_color = Color(0.9058309, 0.8548469, 0.3491902, 1)
+metallic = 0.8
+roughness = 0.2
+emission_energy_multiplier = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6u71k"]
+size = Vector3(0.4, 0.5, 0.3)
+
+[node name="PickupBase" instance=ExtResource("1_lty2n")]
+script = ExtResource("2_r5ix3")
+ammo_amount = 10
+
+[node name="MeshInstance3D" parent="." index="0"]
+mesh = SubResource("BoxMesh_jgu5d")
+surface_material_override/0 = SubResource("StandardMaterial3D_tu783")
+
+[node name="CollisionShape3D" parent="." index="1"]
+shape = SubResource("BoxShape3D_6u71k")
